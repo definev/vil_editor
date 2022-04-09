@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vil_editor/app.dart';
+import 'package:vil_editor/bootstraps.dart';
 
 void main() {
-  runApp(const ProviderScope(child: App()));
+  bootstraps(const App());
 }
