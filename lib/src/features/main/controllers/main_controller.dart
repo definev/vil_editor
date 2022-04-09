@@ -27,6 +27,10 @@ class MainController extends StateNotifier<MainState> {
         EditController(initialName: name),
       ],
     );
+    state = state.copyWith(
+      currentIndex: state.editControllers.length - 1,
+      currentEditController: state.editControllers.last,
+    );
   }
 
   int _newIndex(int index, List<EditController> editControllers) {

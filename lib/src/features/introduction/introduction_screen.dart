@@ -4,6 +4,7 @@ import 'package:flutter_highlight/themes/monokai-sublime.dart';
 import 'package:gap/gap.dart';
 import 'package:highlight/languages/dart.dart';
 import 'package:simple_rich_text/simple_rich_text.dart';
+import 'package:vil_editor/resources/resources.dart';
 
 class IntroductionScreen extends StatelessWidget {
   const IntroductionScreen({Key? key}) : super(key: key);
@@ -18,9 +19,7 @@ class IntroductionScreen extends StatelessWidget {
             padding: const EdgeInsets.all(40),
             child: ConstrainedBox(
               constraints: BoxConstraints.tight(const Size(300, 200)),
-              child: Image.network(
-                'https://user-images.githubusercontent.com/62325868/138510986-cdfb34b2-12c4-4b83-947c-32735c6a7478.png',
-              ),
+              child: Image.asset(VilIcons.icon),
             ),
           ),
           Text(
@@ -35,18 +34,21 @@ class IntroductionScreen extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
             child: SimpleRichText(
               '''
-_*VIL Editor*_ là một công cụ để chỉnh sửa các tệp _ViL_.
-Với _ViL_(Vietlang), bạn tư duy lập trình và thực hiện code bằng chính _*tiếng Việt*_.
+_*{color:primary}VIL Editor*_ là một công cụ để chỉnh sửa các tệp _{color:primary}ViL_.
+Với _*{color:primary}ViL (Vietlang)*_, bạn tư duy lập trình và code bằng chính cú pháp tiếng Việt.
+Phù hợp với người muốn khám phá lập trình mà không cần phải làm quen quá nhiều. 
 
-Cú pháp của _ViL_ tương tự như ngôn ngữ lập trình Dart, C++, Java, ...
+Cú pháp của _{color:primary}ViL_ tương tự như ngôn ngữ lập trình họ C. Ví dụ: Dart, C++, Java, ...
+Vì thế sau khi bạn làm quen lập trình với ViL bạn đã có nền tảng để học các ngôn ngữ lập trình khác.
 
 
-Được hoàn thiện bằng Flutter & Dart.
+Được hoàn thiện bằng 💙 Flutter & Dart 🎯
 
 
-_*/Chương trình "Hello World" trong ViL:/*_
+_*/{color:primary;backgroundColor:white}Chương trình "Hello World" trong ViL:/*_
           ''',
               textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
           Padding(

@@ -4,6 +4,7 @@ import 'package:flutter_portal/flutter_portal.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:supercharged/supercharged.dart';
+import 'package:vil_editor/resources/resources.dart';
 import 'package:vil_editor/src/features/edit/controllers/edit_screen_controller.dart';
 import 'package:vil_editor/src/features/main/controllers/main_controller.dart';
 
@@ -48,9 +49,7 @@ class CodeTitle extends HookConsumerWidget {
               children: [
                 SizedBox(
                   height: 20,
-                  child: Image.network(
-                    'https://user-images.githubusercontent.com/62325868/138510986-cdfb34b2-12c4-4b83-947c-32735c6a7478.png',
-                  ),
+                  child: Image.asset(VilIcons.icon),
                 ),
                 const Gap(8),
                 Center(
@@ -116,7 +115,7 @@ class AddEditPageButton extends HookConsumerWidget {
           color: Theme.of(context).colorScheme.surface,
         ),
         child: HookBuilder(
-          builder: (context) {
+          builder: (_) {
             final textEditingController = useTextEditingController();
 
             return Row(
@@ -137,7 +136,24 @@ class AddEditPageButton extends HookConsumerWidget {
                     minimumSize: const Size(0, 56),
                   ),
                   onPressed: () {
-                    mainController.newEditTab(textEditingController.text);
+                    showAddSection.value = false;
+                    if (textEditingController.text.trim().isNotEmpty) {
+                      mainController
+                          .newEditTab(textEditingController.text.trim());
+                    } else {
+                      ScaffoldMessenger.of(context).showMaterialBanner(
+                        MaterialBanner(
+                          content: const Text('Không được để trống tên file'),
+                          actions: [
+                            TextButton(
+                              onPressed: () => ScaffoldMessenger.of(context)
+                                  .clearMaterialBanners(),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
                   },
                   child: const Text('Tạo'),
                 ),
