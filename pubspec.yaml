@@ -15,11 +15,14 @@ dependencies:
   flutter_hooks: ^0.18.2
   flutter_localizations:
     sdk: flutter
+  flutter_portal: ^0.4.0
   flutter_riverpod: ^1.0.3
+  freezed_annotation: ^1.1.0
   gap: ^2.0.0
   highlight: ^0.7.0
   hooks_riverpod: ^1.0.3
   intl: ^0.17.0
+  simple_rich_text: ^2.0.36
   supercharged: ^2.1.1
   vil:
     git:
@@ -27,8 +30,10 @@ dependencies:
       path: vil
 
 dev_dependencies:
+  build_runner: ^2.1.8
   flutter_test:
     sdk: flutter
+  freezed: ^1.1.1
   very_good_analysis: ^2.4.0
 
 flutter:
@@ -36,8 +41,11 @@ flutter:
 
   assets:
     - assets/fonts/ttf/JetBrainsMono-Regular.ttf
-
+    - assets/fonts/ttf/JetBrainsMono-Bold.ttf
+    
   fonts:
     - family: JetBrainsMono
       fonts:
         - asset: assets/fonts/ttf/JetBrainsMono-Regular.ttf
+        - asset: assets/fonts/ttf/JetBrainsMono-Bold.ttf
+          weight: 700

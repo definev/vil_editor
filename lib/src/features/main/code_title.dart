@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_portal/flutter_portal.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:vil_editor/src/features/edit/controllers/edit_screen_controller.dart';
-import 'package:vil_editor/src/features/main/main_controller.dart';
+import 'package:vil_editor/src/features/main/controllers/main_controller.dart';
 
 class CodeTitle extends HookConsumerWidget {
   const CodeTitle(
@@ -93,24 +94,74 @@ class CodeTitle extends HookConsumerWidget {
   }
 }
 
-class AddEditPageButton extends ConsumerWidget {
+class AddEditPageButton extends HookConsumerWidget {
   const AddEditPageButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final mainController = ref.watch(mainControllerProvider.notifier);
+    final showAddSection = useState(false);
 
-    return InkWell(
-      onTap: mainController.newEditTab,
-      child: Container(
-        height: 48,
-        width: 48,
+    return PortalEntry(
+      visible: showAddSection.value,
+      portalAnchor: Alignment.topRight,
+      childAnchor: Alignment.bottomRight,
+      portal: Container(
+        height: 74,
+        width: 240,
         decoration: BoxDecoration(
-          border: Border(
-            right: BorderSide(color: Theme.of(context).dividerColor),
+          border: Border.all(
+            color: Theme.of(context).dividerColor,
           ),
+          color: Theme.of(context).colorScheme.surface,
         ),
-        child: const Center(child: Icon(Icons.add)),
+        child: HookBuilder(
+          builder: (context) {
+            final textEditingController = useTextEditingController();
+
+            return Row(
+              children: [
+                const Gap(12),
+                Expanded(
+                  child: TextField(
+                    controller: textEditingController,
+                    autofocus: true,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ),
+                const Gap(8),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(0, 56),
+                  ),
+                  onPressed: () {
+                    mainController.newEditTab(textEditingController.text);
+                  },
+                  child: const Text('Tạo'),
+                ),
+                const Gap(12),
+              ],
+            );
+          },
+        ),
+      ),
+      child: InkWell(
+        onTap: () {
+          showAddSection.value = !showAddSection.value;
+        },
+        child: Container(
+          height: 48,
+          width: 48,
+          decoration: BoxDecoration(
+            border: Border(
+              left: BorderSide(color: Theme.of(context).dividerColor),
+              right: BorderSide(color: Theme.of(context).dividerColor),
+            ),
+          ),
+          child: const Center(child: Icon(Icons.add)),
+        ),
       ),
     );
   }

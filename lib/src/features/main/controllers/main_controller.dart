@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vil_editor/src/features/edit/controllers/edit_screen_controller.dart';
-import 'package:vil_editor/src/features/main/main_state.dart';
+import 'package:vil_editor/src/features/main/controllers/main_state.dart';
 
 final mainControllerProvider = StateNotifierProvider<MainController, MainState>(
   (ref) => MainController(),
@@ -16,48 +16,48 @@ class MainController extends StateNotifier<MainState> {
                     'tạo xin_chào = "Xin chào Việt Nam!!";\nin xin_chào;',
                 initialName: 'xin_chao',
               ),
-              EditController(
-                initialCode:
-                    'tạo xin_chào = "Xin chào Trung Quốc!!!";\nin xin_chào;',
-                initialName: 'ni_hao',
-              ),
-              EditController(
-                initialCode: 'tạo xin_chào = "Xin chào Indo!!!";\nin xin_chào;',
-                initialName: 'ngentot',
-              ),
-              EditController(
-                initialCode:
-                    'tạo xin_chào = "Xin chào Japan!!!";\nin xin_chào;',
-                initialName: 'nani',
-              ),
             ],
           ),
         );
 
-  void newEditTab() {
-    state = MainState(
-      editControllers: state.editControllers..add(EditController()),
-      currentIndex: state.currentIndex,
+  void newEditTab([String? name]) {
+    state = state.copyWith(
+      editControllers: [
+        ...state.editControllers,
+        EditController(initialName: name),
+      ],
     );
+  }
+
+  int _newIndex(int index, List<EditController> editControllers) {
+    if (index == 0) return 0;
+    if (index == editControllers.length) return editControllers.length - 1;
+    return index;
   }
 
   void closeEditTab(int index) {
     if (index > state.editControllers.length - 1) return;
     if (index == state.currentIndex) {
+      final newEditControllers = state.editControllers..removeAt(index);
+      if (newEditControllers.isEmpty) {
+        state = const MainState(editControllers: []);
+        return;
+      }
+      final newCurrentIndex = _newIndex(index, newEditControllers);
       state = MainState(
-        editControllers: state.editControllers..removeAt(index),
+        editControllers: newEditControllers,
+        currentIndex: newCurrentIndex,
+        currentEditController: newEditControllers[newCurrentIndex],
       );
       return;
     }
-    state = MainState(
+    state = state.copyWith(
       editControllers: state.editControllers..removeAt(index),
-      currentIndex: state.currentIndex,
     );
   }
 
   void setCurrentTab(int index) {
-    state = MainState(
-      editControllers: state.editControllers,
+    state = state.copyWith(
       currentIndex: index,
       currentEditController: state.editControllers[index],
     );

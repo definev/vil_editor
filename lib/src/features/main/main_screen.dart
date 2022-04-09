@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vil_editor/src/features/edit/controllers/edit_screen_controller.dart';
 import 'package:vil_editor/src/features/edit/screens/edit_screen.dart';
+import 'package:vil_editor/src/features/introduction/introduction_screen.dart';
 import 'package:vil_editor/src/features/main/code_title.dart';
-import 'package:vil_editor/src/features/main/main_controller.dart';
+import 'package:vil_editor/src/features/main/controllers/main_controller.dart';
 
 class MainScreen extends ConsumerWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -23,20 +24,21 @@ class MainScreen extends ConsumerWidget {
                 bottom: BorderSide(color: Theme.of(context).dividerColor),
               ),
             ),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                if (index == mainState.editControllers.length) {
-                  return const AddEditPageButton();
-                }
-
-                return CodeTitle(
-                  mainState.editControllers[index],
-                  key: ValueKey('code_title_$index'),
-                  index: index,
-                );
-              },
-              itemCount: mainState.editControllers.length + 1,
+            child: Row(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) => CodeTitle(
+                      mainState.editControllers[index],
+                      key: ValueKey('code_title_$index'),
+                      index: index,
+                    ),
+                    itemCount: mainState.editControllers.length,
+                  ),
+                ),
+                const AddEditPageButton(),
+              ],
             ),
           ),
           Expanded(
@@ -52,7 +54,9 @@ class MainScreen extends ConsumerWidget {
                       ],
                       child: const EditScreen(),
                     ),
-                  ),
+                  )
+                else
+                  const Positioned.fill(child: IntroductionScreen()),
               ],
             ),
           ),
