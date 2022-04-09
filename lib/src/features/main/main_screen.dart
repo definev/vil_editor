@@ -52,7 +52,9 @@ class MainScreen extends ConsumerWidget {
                           mainState.currentEditController!,
                         ),
                       ],
-                      child: const EditScreen(),
+                      child: EditScreen(
+                        key: ValueKey('edit_screen_${mainState.currentIndex}'),
+                      ),
                     ),
                   )
                 else

@@ -2,9 +2,9 @@ import 'package:code_text_field/code_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/themes/monokai.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:highlight/languages/dart.dart';
 import 'package:vil/vil.dart';
 import 'package:vil_editor/src/utils/vil_editor_native_methods.dart';
+import 'package:vil_editor/src/utils/vil_language.dart';
 
 final editControllerProvider = ChangeNotifierProvider<EditController>(
   (ref) => throw UnimplementedError(),
@@ -27,7 +27,7 @@ class EditController extends ChangeNotifier {
   }
 
   final CodeController _codeController = CodeController(
-    language: dart,
+    language: vil,
     theme: monokaiTheme,
     text: '',
   );

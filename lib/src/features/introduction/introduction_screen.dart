@@ -2,9 +2,9 @@ import 'package:code_text_field/code_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/themes/monokai-sublime.dart';
 import 'package:gap/gap.dart';
-import 'package:highlight/languages/dart.dart';
 import 'package:simple_rich_text/simple_rich_text.dart';
 import 'package:vil_editor/resources/resources.dart';
+import 'package:vil_editor/src/utils/vil_language.dart';
 
 class IntroductionScreen extends StatelessWidget {
   const IntroductionScreen({Key? key}) : super(key: key);
@@ -56,9 +56,10 @@ _*/{color:primary;backgroundColor:white}Chương trình "Hello World" trong ViL:
             child: ConstrainedBox(
               constraints: const BoxConstraints.expand(width: 600, height: 58),
               child: CodeField(
+                
                 enabled: false,
                 controller: CodeController(
-                  language: dart,
+                  language: vil,
                   text: 'tạo xin_chào = "Xin chào Việt Nam!!";\nin xin_chào;',
                   theme: monokaiSublimeTheme,
                 ),
