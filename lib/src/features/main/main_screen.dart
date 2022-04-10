@@ -5,6 +5,7 @@ import 'package:vil_editor/src/features/edit/screens/edit_screen.dart';
 import 'package:vil_editor/src/features/introduction/introduction_screen.dart';
 import 'package:vil_editor/src/features/main/code_title.dart';
 import 'package:vil_editor/src/features/main/controllers/main_controller.dart';
+import 'package:vil_editor/src/features/terminal/screens/terminal_screen.dart';
 
 class MainScreen extends ConsumerWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -44,7 +45,7 @@ class MainScreen extends ConsumerWidget {
           Expanded(
             child: Stack(
               children: [
-                if (mainState.currentEditController != null)
+                if (mainState.currentEditController != null) ...[
                   Positioned.fill(
                     child: ProviderScope(
                       overrides: [
@@ -56,8 +57,19 @@ class MainScreen extends ConsumerWidget {
                         key: ValueKey('edit_screen_${mainState.currentIndex}'),
                       ),
                     ),
-                  )
-                else
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: ProviderScope(
+                      overrides: [
+                        editControllerProvider.overrideWithValue(
+                          mainState.currentEditController!,
+                        ),
+                      ],
+                      child: const TerminalScreen(),
+                    ),
+                  ),
+                ] else
                   const Positioned.fill(child: IntroductionScreen()),
               ],
             ),

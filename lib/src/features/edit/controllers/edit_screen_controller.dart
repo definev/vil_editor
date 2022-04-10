@@ -25,6 +25,12 @@ class EditController extends ChangeNotifier {
     _name = value;
     notifyListeners();
   }
+  String _output = '';
+  String get output => _output;
+  set output(String value) {
+    _output = value;
+    notifyListeners();
+  }
 
   final CodeController _codeController = CodeController(
     language: vil,
@@ -40,6 +46,8 @@ class EditController extends ChangeNotifier {
     if (_nativeMethods.errorMessage.isNotEmpty) {
       throw VilException(_nativeMethods.errorMessage);
     }
+    
+    output = _nativeMethods.output;
     return _nativeMethods.output;
   }
 }

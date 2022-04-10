@@ -16,6 +16,19 @@ class MainController extends StateNotifier<MainState> {
                     'tạo xin_chào = "Xin chào Việt Nam!!";\nin xin_chào;',
                 initialName: 'xin_chao',
               ),
+              EditController(
+                initialCode: '''
+lớp Xe {
+    còi() {
+        in "Pip pip!!!";
+    }
+}
+
+tạo oto = Xe();
+oto.còi();
+''',
+                initialName: 'oto',
+              ),
             ],
           ),
         );
