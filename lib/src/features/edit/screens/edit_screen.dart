@@ -12,6 +12,7 @@ class EditScreen extends ConsumerWidget {
 
     return CodeField(
       controller: controller.codeController,
+      focusNode: controller.focusNode,
       expands: true,
       lineNumberStyle: LineNumberStyle(
         textStyle: Theme.of(context).textTheme.caption!.copyWith(fontSize: 1),

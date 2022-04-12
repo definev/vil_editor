@@ -1,24 +1,43 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/foundation.dart';
 import 'package:vil/native_methods.dart';
 
-final vilEditorNativeMethodsProvider = Provider<VilEditorNativeMethods>(
-  (ref) => VilEditorNativeMethods(),
-);
-
 class VilEditorNativeMethods implements NativeMethods {
+  VilEditorNativeMethods({
+    required this.onError,
+    required this.onOutput,
+    required this.onClear,
+  });
+
   String _output = '';
   String _errorMessage = '';
 
   String get output => _output;
   String get errorMessage => _errorMessage;
 
+  final ValueChanged<String> onError;
+  final ValueChanged<String> onOutput;
+  final VoidCallback onClear;
+
   @override
   void error(dynamic value) {
-    _errorMessage += value.toString();
+    if (_errorMessage.isEmpty) {
+      _errorMessage = '$value';
+    } else {
+      _errorMessage += '\n$value';
+    }
+    onError('$value');
   }
 
   @override
   void out(dynamic value) {
-    _output += value.toString();
+    final text = value.toString().replaceAll(r'\n', '\n');
+    _output += text;
+    onOutput('$value');
+  }
+
+  void clear() {
+    _output = '';
+    _errorMessage = '';
+    onClear();
   }
 }

@@ -20,7 +20,7 @@ packages:
     description:
       path: annotations
       ref: HEAD
-      resolved-ref: f4afaffb32c9e7227aaa85184b9c76e8532a878b
+      resolved-ref: f64e59a32936a6bca54861e1b87d772ced8b0a47
       url: "https://github.com/definev/vil.git"
     source: git
     version: "0.0.0"
@@ -658,7 +658,7 @@ packages:
     description:
       path: vil
       ref: HEAD
-      resolved-ref: f4afaffb32c9e7227aaa85184b9c76e8532a878b
+      resolved-ref: f64e59a32936a6bca54861e1b87d772ced8b0a47
       url: "https://github.com/definev/vil.git"
     source: git
     version: "0.0.0"
